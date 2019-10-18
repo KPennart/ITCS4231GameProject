@@ -4,126 +4,70 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool isCrouching_bool;
+    // Fields on the player object that are used in movement speed calculation
+    [SerializeField] private string horizontalInputName;
+    [SerializeField] private string verticalInputName;
+    [SerializeField] private float movementSpeed;
+    [SerializeField] private float sprintSpeedBonus;
+    [SerializeField] private float crouchSpeedBonus;
 
-    private float speed;
-    private float walkSpeed = 0.05f;
-    private float runSpeed = 0.1f;
-    private float crouchSpeed = 0.025f;
-    private float rotationSpeed;
+    // Instance of the chracter controller
+    private CharacterController charController;
+    // Instance of the animation controller
+    private Animator anim;
 
-    Rigidbody rb;
-    Animator anim;
-    CapsuleCollider col_size;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        // Set the character and animation controllers equal to component's controller/animator
+        charController = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
-        col_size = GetComponent<CapsuleCollider>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            ToggleCrouch();
-        }
-
-        var z = Input.GetAxis("Vertical") * speed;
-        var y = Input.GetAxis("Horizontal") * rotationSpeed;
-
-        transform.Translate(0, 0, z);
-        transform.Translate(0, y, 0);
-
-        if (isCrouching_bool)
-        {
-            if (Input.GetKey(KeyCode.W))
-            {
-                anim.SetBool("isWalking", true);
-                anim.SetBool("isRunning", false);
-                anim.SetBool("isIdle", false);
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                anim.SetBool("isWalking", true);
-                anim.SetBool("isRunning", false);
-                anim.SetBool("isIdle", false);
-            }
-            else
-            {
-                anim.SetBool("isWalking", false);
-                anim.SetBool("isRunning", false);
-                anim.SetBool("isIdle", true);
-            }
-        }
-        else if (Input.GetKey(KeyCode.LeftShift))
-        {
-            speed = runSpeed;
-
-            if (Input.GetKey(KeyCode.W))
-            {
-                anim.SetBool("isWalking", false);
-                anim.SetBool("isRunning", true);
-                anim.SetBool("isIdle", false);
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                anim.SetBool("isWalking", false);
-                anim.SetBool("isRunning", true);
-                anim.SetBool("isIdle", false);
-            }
-            else
-            {
-                anim.SetBool("isWalking", false);
-                anim.SetBool("isRunning", false);
-                anim.SetBool("isIdle", true);
-            }
-        }
-        else if (!isCrouching_bool)
-        {
-            if (Input.GetKey(KeyCode.W))
-            {
-                anim.SetBool("isWalking", true);
-                anim.SetBool("isRunning", false);
-                anim.SetBool("isIdle", false);
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                anim.SetBool("isWalking", true);
-                anim.SetBool("isRunning", false);
-                anim.SetBool("isIdle", false);
-            }
-            else
-            {
-                anim.SetBool("isWalking", false);
-                anim.SetBool("isRunning", false);
-                anim.SetBool("isIdle", true);
-            }
-        }
+        // Calculate movespeed
+        PlayerMovement();
     }
 
-    private void ToggleCrouch()
+    private void PlayerMovement()
     {
-        if (isCrouching_bool)
+        // Value used to determine if the player should move at a non-standard rate
+        float moveSpeedMod = MoveSpeedCalculator();
+
+        // Calculate horizontal and vertical movements
+        float horizInput = Input.GetAxis(horizontalInputName) * (movementSpeed + moveSpeedMod);
+        float vertInput = Input.GetAxis(verticalInputName) * (movementSpeed + moveSpeedMod);
+
+        // Create Vec3's to hold forward and right movement
+        Vector3 forwardMovement = transform.forward * vertInput;
+        Vector3 rightMovement = transform.right * horizInput;
+
+        // Pass the new Vec3's added together to the charController
+        charController.SimpleMove(forwardMovement + rightMovement);
+
+    }
+
+    //Calculate the modifier to apply to movespeed depending on if players are sprinting or crouching
+    private float MoveSpeedCalculator()
+    {
+        // If the player is running and moving forward
+        if (anim.GetBool("isRunning") && anim.GetBool("isWalkingForward"))
         {
-            isCrouching_bool = false;
-            anim.SetBool("isCrouching", false);
-            col_size.height = 2;
-            col_size.center = new Vector3(0, 1, 0);
+            // Pass back the bonus for sprinting
+            return sprintSpeedBonus;
         }
+        // If the player is crouching and moving forward
+        else if (anim.GetBool("isCrouching") && anim.GetBool("isWalkingForward"))
+        {
+            // Pass back the 'bonus' for crouching
+            return crouchSpeedBonus;
+        }
+        // There is no modifier to apply
         else
         {
-            isCrouching_bool = true;
-            anim.SetBool("isCrouching", true);
-            speed = crouchSpeed;
-            col_size.height = 1;
-            col_size.center = new Vector3(0, 0.5f, 0);
+            // Pass back 0
+            return 0;
         }
     }
-
-
 
 }
