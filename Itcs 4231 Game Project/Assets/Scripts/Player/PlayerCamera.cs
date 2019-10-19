@@ -43,17 +43,17 @@ public class PlayerCamera : MonoBehaviour
 
         xAxisClamp_flt += mouseY_flt;
 
-        if(xAxisClamp_flt > 90.0f)
+        if(xAxisClamp_flt > 75.0f)
         {
-            xAxisClamp_flt = 90.0f;
+            xAxisClamp_flt = 75.0f;
             mouseY_flt = 0.0f;
-            ClampXAxisRotationToValue(270.0f);
+            ClampXAxisRotationToValue(295.0f);
         }
-        else if (xAxisClamp_flt < -90.0f)
+        else if (xAxisClamp_flt < -75.0f)
         {
-            xAxisClamp_flt = -90.0f;
+            xAxisClamp_flt = -75.0f;
             mouseY_flt = 0.0f;
-            ClampXAxisRotationToValue(90.0f);
+            ClampXAxisRotationToValue(75.0f);
         }
 
         transform.Rotate(Vector3.left * mouseY_flt);

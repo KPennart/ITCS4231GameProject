@@ -62,6 +62,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Models\Conifers [BOTD]\CTI Runtime Components\Scripts\Editor\CTI_AdvancedEdgeFluttering.cs" />
+    <Compile Include="Assets\Models\Conifers [BOTD]\CTI Runtime Components\Scripts\Editor\CTI_DetailsEnum.cs" />
+    <Compile Include="Assets\Models\Conifers [BOTD]\CTI Runtime Components\Scripts\Editor\CTI_ShaderGUI.cs" />
     <Compile Include="Assets\Models\RunemarkStudio\DarkFantasyKit [Free]\Readme\Parts\Editor\ReadmeEditor.cs" />
     <Reference Include="UnityEditor.TestRunner">
       <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
@@ -95,6 +98,12 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TerrainTools">
+      <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/Unity.TerrainTools.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TerrainTools.Editor">
+      <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/Unity.TerrainTools.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>E:/Programs/Unity Editors/2019.2.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
