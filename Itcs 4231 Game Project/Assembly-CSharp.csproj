@@ -65,7 +65,8 @@
     <Compile Include="Assets\Models\Conifers [BOTD]\CTI Runtime Components\Scripts\CTI_CustomWind.cs" />
     <Compile Include="Assets\Models\Conifers [BOTD]\CTI Runtime Components\Scripts\CTI_Utils.cs" />
     <Compile Include="Assets\Models\RunemarkStudio\DarkFantasyKit [Free]\Readme\Parts\Readme.cs" />
-    <Compile Include="Assets\Scripts\FlashlightController.cs" />
+    <Compile Include="Assets\Scripts\House\LightController.cs" />
+    <Compile Include="Assets\Scripts\Player\FlashlightController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAnimationController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerCamera.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
@@ -85,6 +86,9 @@
     <None Include="Assets\Models\Conifers [BOTD]\CTI Runtime Components\Shaders\CTI_LOD_Bark_301.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TerrainTools">
+      <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/Unity.TerrainTools.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
@@ -107,14 +111,11 @@
     <Reference Include="Unity.TextMeshPro">
       <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TerrainTools">
-      <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/Unity.TerrainTools.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TerrainTools.Editor">
       <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/Unity.TerrainTools.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>E:/Programs/Unity Editors/2019.2.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

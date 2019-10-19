@@ -75,6 +75,9 @@
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.TerrainTools">
+      <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/Unity.TerrainTools.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
@@ -96,14 +99,11 @@
     <Reference Include="Unity.TextMeshPro">
       <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TerrainTools">
-      <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/Unity.TerrainTools.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TerrainTools.Editor">
       <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/Unity.TerrainTools.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>E:/Games/Unity/Itcs 4231 Game Project/ITCS4231GameProject/Itcs 4231 Game Project/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>E:/Programs/Unity Editors/2019.2.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
