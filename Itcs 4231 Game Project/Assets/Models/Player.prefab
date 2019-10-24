@@ -3225,8 +3225,8 @@ MonoBehaviour:
   horizontalInputName: Horizontal
   verticalInputName: Vertical
   movementSpeed: 6
-  sprintSpeedBonus: 10
-  crouchSpeedBonus: -5
+  sprintSpeedBonus: 8
+  crouchSpeedBonus: -4
 --- !u!1 &9170074142454474558
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class LightController : MonoBehaviour
     private new AudioSource audio;
 
     private float minIntensity = 0f;
-    private float maxIntensity = 2f;
+    private float maxIntensity = 4f;
     private float lastIntensity = 0;
 
     public int lightSmoothness = 1;
@@ -40,7 +40,7 @@ public class LightController : MonoBehaviour
 
         if (flickering)
         {
-            if (Random.Range(0, 10) == 0)
+            if (Random.Range(0, 5) == 0)
             {
                 lightSource.intensity = 0;
             }
