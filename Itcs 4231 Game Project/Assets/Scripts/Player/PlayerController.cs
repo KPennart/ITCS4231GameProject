@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
             return sprintSpeedBonus;
         }
         // If the player is crouching and moving forward
-        else if (anim.GetBool("isCrouching") && anim.GetBool("isWalkingForward"))
+        else if (anim.GetBool("isCrouching"))
         {
             // Pass back the 'bonus' for crouching
             return crouchSpeedBonus;
