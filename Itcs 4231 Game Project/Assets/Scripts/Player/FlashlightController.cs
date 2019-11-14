@@ -94,7 +94,7 @@ public class FlashlightController : MonoBehaviour
             val = 5f;
         }
 
-        Debug.Log("Battery: " + flashlightBattery + "        Val: " + val);
+        //Debug.Log("Battery: " + flashlightBattery + "        Val: " + val);
 
         flashlightHUD.texture = flashlightTextures[(int)val];
 
