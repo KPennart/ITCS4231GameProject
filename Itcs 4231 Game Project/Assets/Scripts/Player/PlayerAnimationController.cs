@@ -6,6 +6,10 @@ public class PlayerAnimationController : MonoBehaviour
 {
     // Declare animator variable
     public Animator anim;
+    //declare StaminaBar variables
+    private bool isSprinting = StaminaBarController.isSprinting;
+    private bool canRun = StaminaBarController.canRun;
+    public static bool isCrouching = false;
 
     void Start()
     {
@@ -15,9 +19,11 @@ public class PlayerAnimationController : MonoBehaviour
 
     void Update()
     {
-
-        // If the user is running
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
+        //update isSprinting and canRun from StaminaBarController
+        isSprinting = StaminaBarController.isSprinting;
+        canRun = StaminaBarController.canRun;
+        // If the user is running and can run based off of stamina bar information
+        if (isSprinting && canRun && anim.GetBool("isCrouching") == false)
         {
             ChangeAnimationStates(true, true, false, false, false);
 
@@ -30,6 +36,8 @@ public class PlayerAnimationController : MonoBehaviour
             // If the player hits the crouch key
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
+                // Toggle whether the player is crouching for the stamina bar
+                isCrouching = !isCrouching;
                 // Toggle whether the player is crouching in the animator
                 anim.SetBool("isCrouching", !anim.GetBool("isCrouching"));
             }

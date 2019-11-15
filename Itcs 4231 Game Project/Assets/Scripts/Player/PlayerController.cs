@@ -10,11 +10,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField] private float sprintSpeedBonus;
     [SerializeField] private float crouchSpeedBonus;
-
     // Instance of the chracter controller
     private CharacterController charController;
     // Instance of the animation controller
     private Animator anim;
+
 
     private void Awake()
     {
