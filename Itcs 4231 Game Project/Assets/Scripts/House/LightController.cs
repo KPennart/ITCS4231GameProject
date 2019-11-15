@@ -13,7 +13,7 @@ public class LightController : MonoBehaviour
 
     public int lightSmoothness = 1;
 
-    private bool flickering = true;
+    private bool flickering = false;
 
     Queue<float> smoothQueue;
     

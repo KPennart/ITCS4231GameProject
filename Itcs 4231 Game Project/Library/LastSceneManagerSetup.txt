@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/HouseExterior.unity
+- path: Assets/Scenes/HouseInterior.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
