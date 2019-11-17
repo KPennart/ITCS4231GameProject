@@ -65,6 +65,8 @@
     <Compile Include="Assets\Models\Conifers [BOTD]\CTI Runtime Components\Scripts\CTI_CustomWind.cs" />
     <Compile Include="Assets\Models\Conifers [BOTD]\CTI Runtime Components\Scripts\CTI_Utils.cs" />
     <Compile Include="Assets\Models\RunemarkStudio\DarkFantasyKit [Free]\Readme\Parts\Readme.cs" />
+    <Compile Include="Assets\Scripts\House\DoorAnimationController.cs" />
+    <Compile Include="Assets\Scripts\House\DoorController.cs" />
     <Compile Include="Assets\Scripts\House\LightController.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MouseHover.cs" />
@@ -84,6 +86,7 @@
     <None Include="Assets\Models\Conifers [BOTD]\CTI Runtime Components\Resources\CTI_Internal-DeferredShading.shader" />
     <None Include="Assets\Models\Conifers [BOTD]\CTI Runtime Components\Shaders\Includes\CTI_indirect.cginc" />
     <None Include="Assets\Models\Conifers [BOTD]\CTI Runtime Components\Shaders\Includes\CTI_BillboardVertex_301.cginc" />
+    <None Include="Assets\Tim's Assets\Doors\Shader\BloodyDoor.shader" />
     <None Include="Assets\Models\Conifers [BOTD]\CTI Runtime Components\Resources\CTI_Internal-DeferredReflections.shader" />
     <None Include="Assets\Samples\Terrain Tools\0.1.0-preview\Terrain Assets\ThirdPartyNotices.txt" />
     <None Include="Assets\Models\Conifers [BOTD]\CTI Runtime Components\Shaders\CTI_LOD_Bark_301.shader" />

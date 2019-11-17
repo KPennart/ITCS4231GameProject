@@ -83,4 +83,9 @@ public class PlayerAnimationController : MonoBehaviour
         anim.SetBool("strafeLeft", d);
         anim.SetBool("strafeRight", e);
     }
+
+    public bool isPlayerCrouching()
+    {
+        return isCrouching;
+    }
 }
