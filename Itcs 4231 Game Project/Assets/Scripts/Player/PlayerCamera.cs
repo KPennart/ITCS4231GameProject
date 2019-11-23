@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -85,10 +86,15 @@ public class PlayerCamera : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, interactionDistance))
             {
-                //Debug.Log(hit);
+                //Debug.Log(hit.transform.gameObject.);
                 if (hit.collider.CompareTag("Door"))
                 {
                     hit.transform.root.gameObject.GetComponent<DoorController>().playerInteraction = true;
+                }
+                else if (hit.collider.CompareTag("InteriorTransition"))
+                {
+                    //Debug.Log("123");
+                    SceneManager.LoadScene(2);
                 }
                 else
                 {

@@ -6,12 +6,14 @@ public class DoorController : MonoBehaviour
 {
     [SerializeField] Camera playerCam;
     [SerializeField] Camera doorCam;
+    [SerializeField] Transform doorTrans;
 
     private Animator anim;
 
     private bool cameraCooldown = false;
     private bool doorCooldown = false;
     private bool doorOpen = false;
+    private bool doorCamRotated = false;
 
     public bool playerInteraction = false;
 
@@ -26,7 +28,6 @@ public class DoorController : MonoBehaviour
     {
         ChangeCameraState();
         ChangeDoorState();
-        //Debug.Log(test);
     }
 
     public void ChangeDoorState()
@@ -54,6 +55,7 @@ public class DoorController : MonoBehaviour
     {
         if (playerInteraction && PlayerAnimationController.isCrouching && !cameraCooldown)
         {
+            ChangeCameraAngle();
             playerInteraction = false;
             playerCam.enabled = !playerCam.enabled;
             doorCam.enabled = !doorCam.enabled;
@@ -66,6 +68,41 @@ public class DoorController : MonoBehaviour
             doorCam.enabled = !doorCam.enabled;
             Invoke("ResetCameraCooldown", 0.2f);
             cameraCooldown = true;
+        }
+    }
+
+    private void ChangeCameraAngle()
+    {
+        Vector3 heading = doorCam.transform.position - playerCam.transform.position;
+        float distance = heading.magnitude;
+        Vector3 direction = heading / distance;
+
+        if (doorTrans.rotation.y == 0.5f)
+        {
+            if (direction.x > 0.1 && !doorCamRotated)
+            {
+                //Debug.Log(direction);
+                doorCamRotated = true;
+                doorCam.transform.Rotate(0f, 180f, 0f);
+            }
+            else if (direction.x < -0.1 && doorCamRotated)
+            {
+                doorCamRotated = false;
+                doorCam.transform.Rotate(0f, 180f, 0f);
+            }
+        }
+        else
+        {
+            if (direction.z > 0.1 && !doorCamRotated)
+            {
+                doorCamRotated = true;
+                doorCam.transform.Rotate(0f, 180f, 0f);
+            }
+            else if (direction.z < -0.1 && doorCamRotated)
+            {
+                doorCamRotated = false;
+                doorCam.transform.Rotate(0f, 180f, 0f);
+            }
         }
     }
 
