@@ -9,6 +9,10 @@ public class PlayerCamera : MonoBehaviour
 
     [SerializeField] private Transform playerBody;
 
+    [SerializeField] private Camera playerCam;
+
+    public float interactionDistance = 5f;
+
     private float xAxisClamp_flt;
 
     private void Awake()
@@ -33,7 +37,12 @@ public class PlayerCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CameraRotation();
+        if (playerCam.enabled)
+        {
+            CameraRotation();
+        }
+
+        InteractWithObject();
     }
 
     private void CameraRotation()
@@ -65,5 +74,28 @@ public class PlayerCamera : MonoBehaviour
         Vector3 eulerRotation = transform.eulerAngles;
         eulerRotation.x = value;
         transform.eulerAngles = eulerRotation;
+    }
+
+    private void InteractWithObject()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Ray ray = new Ray(transform.position, transform.forward);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, interactionDistance))
+            {
+                //Debug.Log(hit);
+                if (hit.collider.CompareTag("Door"))
+                {
+                    hit.transform.root.gameObject.GetComponent<DoorController>().playerInteraction = true;
+                }
+                else
+                {
+                    //Debug.Log("False");
+                }
+            }
+
+        }
     }
 }

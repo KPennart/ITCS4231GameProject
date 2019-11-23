@@ -4,42 +4,78 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-    [SerializeField] GameObject Player;
-    [SerializeField] GameObject Door;
-    [SerializeField] GameObject DoorCam;
+    [SerializeField] Camera playerCam;
+    [SerializeField] Camera doorCam;
 
-    private bool DoorCamActive = false;
-    private bool cooldown = false;
+    private Animator anim;
+
+    private bool cameraCooldown = false;
+    private bool doorCooldown = false;
+    private bool doorOpen = false;
+
+    public bool playerInteraction = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(Player.transform.position);
+        ChangeCameraState();
+        ChangeDoorState();
+        //Debug.Log(test);
+    }
 
-        if (Input.GetKey(KeyCode.E) && !cooldown && PlayerAnimationController.isCrouching)
+    public void ChangeDoorState()
+    {
+        
+        if (playerInteraction && !doorCooldown && !PlayerAnimationController.isCrouching)
         {
-            Invoke("ResetCooldown", 0.2f);
-            cooldown = true;
+            playerInteraction = false;
+            doorOpen = !doorOpen;
+            Invoke("ResetDoorCooldown", 2.0f);
+            doorCooldown = true;
 
-            DoorCamActive = !DoorCamActive;
-            Player.SetActive(!DoorCamActive);
-            DoorCam.SetActive(DoorCamActive);
-
-            if (Player.transform.position[2] > Door.transform.position[2])
+            if (doorOpen)
             {
-                Debug.Log("123");
+                anim.Play("Door_Open");
+            }
+            else
+            {
+                anim.Play("Door_Close");
             }
         }
     }
 
-    void ResetCooldown()
+    private void ChangeCameraState()
     {
-        cooldown = false;
+        if (playerInteraction && PlayerAnimationController.isCrouching && !cameraCooldown)
+        {
+            playerInteraction = false;
+            playerCam.enabled = !playerCam.enabled;
+            doorCam.enabled = !doorCam.enabled;
+            Invoke("ResetCameraCooldown", 0.2f);
+            cameraCooldown = true;
+        }
+        else if (!PlayerAnimationController.isCrouching && !cameraCooldown && doorCam.enabled)
+        {
+            playerCam.enabled = !playerCam.enabled;
+            doorCam.enabled = !doorCam.enabled;
+            Invoke("ResetCameraCooldown", 0.2f);
+            cameraCooldown = true;
+        }
+    }
+
+    void ResetCameraCooldown()
+    {
+        cameraCooldown = false;
+    }
+
+    void ResetDoorCooldown()
+    {
+        doorCooldown = false;
     }
 }
