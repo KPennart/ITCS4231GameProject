@@ -10,6 +10,7 @@ public class PlayerAnimationController : MonoBehaviour
     private bool isSprinting = StaminaBarController.isSprinting;
     private bool canRun = StaminaBarController.canRun;
     public static bool isCrouching = false;
+    public static bool isWalking = false;
 
     void Start()
     {
@@ -48,26 +49,31 @@ public class PlayerAnimationController : MonoBehaviour
             // Tell animator to use the forward animation
             if (Input.GetKey(KeyCode.W))
             {
+                isWalking = true;
                 ChangeAnimationStates(true, true, false, false, false);
             }
             // Tell animator to use the backward animation
             else if (Input.GetKey(KeyCode.S))
             {
+                isWalking = true;
                 ChangeAnimationStates(true, false, true, false, false);
             }
             // Tell animator to use the left strafe animation
             else if (Input.GetKey(KeyCode.A))
             {
+                isWalking = true;
                 ChangeAnimationStates(true, false, false, true, false);
             }
             // Tell animator to use the right strafe animation
             else if (Input.GetKey(KeyCode.D))
             {
+                isWalking = true;
                 ChangeAnimationStates(true, false, false, false, true);
             }
             // Tell animator to use the idle animation
             else
             {
+                isWalking = false;
                 ChangeAnimationStates(false, false, false, false, false);
             }
         }
