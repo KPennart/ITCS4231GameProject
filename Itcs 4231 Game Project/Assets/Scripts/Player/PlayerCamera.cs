@@ -105,7 +105,7 @@ public class PlayerCamera : MonoBehaviour
                 {
                     hit.transform.gameObject.GetComponent<KeyManager>().playerInteraction = true;
                 }
-                else if (hit.collider.CompareTag("Exit Door"))
+                else if (hit.collider.CompareTag("Exit Door") && keyCollection[4])
                 {
                     UnlockCursor();
                     SceneManager.LoadScene(0);
