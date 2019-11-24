@@ -2888,6 +2888,39 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 1.2210001, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &369580972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 369580973}
+  m_Layer: 0
+  m_Name: Ghost Patrol Points
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &369580973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369580972}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1424848302}
+  - {fileID: 628309067}
+  - {fileID: 504970479}
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &374687602
 GameObject:
   m_ObjectHideFlags: 0
@@ -3993,6 +4026,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 500952133}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &504970478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 504970479}
+  m_Layer: 0
+  m_Name: Second Bedroom
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &504970479
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504970478}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.783, y: 6.624, z: -16.261}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 369580973}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &505375565
 GameObject:
   m_ObjectHideFlags: 0
@@ -5187,6 +5250,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623639348}
   m_CullTransparentMesh: 0
+--- !u!1 &628309066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 628309067}
+  m_Layer: 0
+  m_Name: Second Bedroom Doorway
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &628309067
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628309066}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.312, y: 6.624, z: -16.261}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 369580973}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &635367134
 GameObject:
   m_ObjectHideFlags: 0
@@ -7922,7 +8015,7 @@ PrefabInstance:
     - target: {fileID: 4054439691168573112, guid: f9b27e20c2d2a70478c29618d416f267,
         type: 3}
       propertyPath: m_Name
-      value: Door (4)
+      value: Second Bedroom Door
       objectReference: {fileID: 0}
     - target: {fileID: 4054439691168573112, guid: f9b27e20c2d2a70478c29618d416f267,
         type: 3}
@@ -10528,6 +10621,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1648274108}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1424848301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1424848302}
+  m_Layer: 0
+  m_Name: Kitchen
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1424848302
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424848301}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.624, z: -19.67}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 369580973}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1425333904
 GameObject:
   m_ObjectHideFlags: 0
@@ -12520,6 +12643,12 @@ PrefabInstance:
       objectReference: {fileID: 1421726637}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9b27e20c2d2a70478c29618d416f267, type: 3}
+--- !u!1 &1650750767 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4054439691168573112, guid: f9b27e20c2d2a70478c29618d416f267,
+    type: 3}
+  m_PrefabInstance: {fileID: 955978673}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1661297913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17333,7 +17462,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 386574471}
-  anim: {fileID: 0}
+  kitchen: {fileID: 1424848302}
+  secondBedroomDoorwayExt: {fileID: 628309067}
+  secondBedroom: {fileID: 504970479}
+  secondBedroomDoor: {fileID: 1650750767}
 --- !u!136 &8296172668968885843
 CapsuleCollider:
   m_ObjectHideFlags: 0

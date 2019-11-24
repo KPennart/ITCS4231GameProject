@@ -64,6 +64,25 @@ public class DoorController : MonoBehaviour
         }
     }
 
+    public void GhostOpenDoor()
+    {
+        doorOpen = !doorOpen;
+
+        if (doorOpen)
+        {
+            anim.Play("Door_Open");
+        }
+        else
+        {
+            anim.Play("Door_Close");
+        }
+    }
+
+    public bool isDoorOpen()
+    {
+        return doorOpen;
+    }
+
     private void ChangeCameraState()
     {
         if (playerInteraction && PlayerAnimationController.isCrouching && !cameraCooldown)
