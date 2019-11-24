@@ -12,6 +12,10 @@ public class DoorController : MonoBehaviour
     [SerializeField] float speedH = 2.0f;
     [SerializeField] float speedV = 2.0f;
 
+    [SerializeField] bool unlocked;
+    [SerializeField] int keyRequired;
+    [SerializeField] GameObject player;
+
     private float pitch = 0.0f;
     private float yaw = 0.0f;
 
@@ -40,6 +44,7 @@ public class DoorController : MonoBehaviour
     void Update()
     {
         ChangeCameraState();
+
         ChangeDoorState();
     }
 
@@ -49,18 +54,27 @@ public class DoorController : MonoBehaviour
         if (playerInteraction && !doorCooldown && !PlayerAnimationController.isCrouching)
         {
             playerInteraction = false;
-            doorOpen = !doorOpen;
-            Invoke("ResetDoorCooldown", 2.0f);
-            doorCooldown = true;
 
-            if (doorOpen)
+            if (unlocked)
             {
-                anim.Play("Door_Open");
+                doorOpen = !doorOpen;
+                Invoke("ResetDoorCooldown", 2.0f);
+                doorCooldown = true;
+
+                if (doorOpen)
+                {
+                    anim.Play("Door_Open");
+                }
+                else
+                {
+                    anim.Play("Door_Close");
+                }
             }
-            else
+            else if (player.GetComponent<PlayerCamera>().keyCollection[keyRequired])
             {
-                anim.Play("Door_Close");
+                unlocked = true;
             }
+            
         }
     }
 

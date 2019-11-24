@@ -16,6 +16,8 @@ public class PlayerCamera : MonoBehaviour
 
     private float xAxisClamp_flt;
 
+    public bool[] keyCollection;
+
     private void Awake()
     {
         LockCursor();
@@ -28,11 +30,16 @@ public class PlayerCamera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    private void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        keyCollection = new bool[5];
     }
 
     // Update is called once per frame
@@ -93,6 +100,15 @@ public class PlayerCamera : MonoBehaviour
                 else if (hit.collider.CompareTag("InteriorTransition"))
                 {
                     SceneManager.LoadScene(2);
+                }
+                else if (hit.collider.CompareTag("Key"))
+                {
+                    hit.transform.gameObject.GetComponent<KeyManager>().playerInteraction = true;
+                }
+                else if (hit.collider.CompareTag("Exit Door"))
+                {
+                    UnlockCursor();
+                    SceneManager.LoadScene(0);
                 }
                 else
                 {
