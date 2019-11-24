@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -41,6 +42,11 @@ public class PursuePlayer : MonoBehaviour
     private void Update()
     {
         IsWalking();
+        GhostAI();
+    }
+
+    private void GhostAI()
+    {
         if (IsPlayerInRange())
         {
             agent.SetDestination(target.position);
@@ -48,7 +54,7 @@ public class PursuePlayer : MonoBehaviour
         }
         else
         {
-            if (playerDetected)
+            if (playerDetected && hasGhostArrived())
             {
                 ResetPath();
                 playerDetected = false;
@@ -63,8 +69,6 @@ public class PursuePlayer : MonoBehaviour
                 }
             }
         }
-
-        //Vector3 test = new Vector3(0f, 1f, 0f);
     }
 
     private void setNextDestination()
@@ -76,6 +80,12 @@ public class PursuePlayer : MonoBehaviour
         justArrived = true;
     }
 
+    /// <summary>
+    /// Function determines whether or not the ghost is at its destination
+    /// </summary>
+    /// <returns>
+    /// Returns true when the ghost has arrived
+    /// </returns>
     private bool hasGhostArrived()
     {
         if (agent.remainingDistance <= agent.stoppingDistance)
@@ -88,6 +98,9 @@ public class PursuePlayer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// If the patrol location has any activity such as opening/closing doors it is done here
+    /// </summary>
     private void destinationActivity()
     {
         if (nextLocation == secondBedroomDoorwayExt.position)
@@ -118,6 +131,9 @@ public class PursuePlayer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Populates the Queue for the route the ghost takes to patrol
+    /// </summary>
     private void PopulateLocationQueue()
     {
         locations.Enqueue(kitchen.position);
@@ -126,15 +142,26 @@ public class PursuePlayer : MonoBehaviour
         locations.Enqueue(secondBedroomDoorwayExt.position);
     }
 
+    /// <summary>
+    /// Function checks to see if the player is Either in line of sight of the ghost, walking too close to the ghost, or crouched too close to the ghost
+    /// </summary>
+    /// <returns>
+    /// Returns true if the player can be detected
+    /// </returns>
     private bool IsPlayerInRange()
     {
         Vector3 direction = target.position - transform.position;
         float angle = Vector3.Angle(direction, transform.forward);
+
+        Debug.Log(direction.magnitude);
+
         if ((direction.magnitude < 15f && angle < 60))
         {
             RaycastHit hit;
 
-            if (Physics.Raycast(transform.position + transform.up, direction.normalized, out hit, .5f))
+            Debug.DrawRay(transform.position + transform.up, direction.normalized, Color.red);
+
+            if (Physics.Raycast(transform.position + transform.up, direction.normalized, out hit))
             {
                 if (hit.collider.CompareTag("Player"))
                 {
@@ -145,22 +172,35 @@ public class PursuePlayer : MonoBehaviour
                     return false;
                 }
             }
-            return true;
         }
-        else if (!PlayerAnimationController.isCrouching && direction.magnitude < 10f)
+
+        if (Math.Floor(target.position.y) == Math.Floor(transform.position.y))
         {
-            return true;
+            if (!PlayerAnimationController.isCrouching && PlayerAnimationController.isWalking && direction.magnitude < 10f)
+            {
+                return true;
+            }
+            else if (PlayerAnimationController.isCrouching && PlayerAnimationController.isWalking && direction.magnitude < 2f)
+            {
+                return true;
+            }
+            else if (!PlayerAnimationController.isCrouching && !PlayerAnimationController.isWalking && direction.magnitude < 5f)
+            {
+                return true;
+            }
+            else if (PlayerAnimationController.isCrouching && !PlayerAnimationController.isWalking && direction.magnitude < 2f)
+            {
+                return true;
+            }
         }
-        else if (PlayerAnimationController.isCrouching && direction.magnitude < 2f)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+
+        return false;
+
     }
 
+    /// <summary>
+    /// Makes the ghost resume its patrol after losing the player
+    /// </summary>
     private void ResetPath()
     {
         agent.SetDestination(nextLocation);
