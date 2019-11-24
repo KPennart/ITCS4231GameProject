@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DoorController : MonoBehaviour
 {
@@ -8,7 +9,17 @@ public class DoorController : MonoBehaviour
     [SerializeField] Camera doorCam;
     [SerializeField] Transform doorTrans;
 
+    [SerializeField] float speedH = 2.0f;
+    [SerializeField] float speedV = 2.0f;
+
+    private float pitch = 0.0f;
+    private float yaw = 0.0f;
+
     private Animator anim;
+
+    private Image keyhole;
+
+    private float xAxisClamp_flt;
 
     private bool cameraCooldown = false;
     private bool doorCooldown = false;
@@ -21,6 +32,8 @@ public class DoorController : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+        keyhole = GameObject.Find("Keyhole").GetComponent<Image>();
+        xAxisClamp_flt = 0.0f;
     }
 
     // Update is called once per frame
@@ -56,6 +69,7 @@ public class DoorController : MonoBehaviour
         if (playerInteraction && PlayerAnimationController.isCrouching && !cameraCooldown)
         {
             ChangeCameraAngle();
+            keyhole.enabled = !keyhole.enabled;
             playerInteraction = false;
             playerCam.enabled = !playerCam.enabled;
             doorCam.enabled = !doorCam.enabled;
@@ -64,6 +78,7 @@ public class DoorController : MonoBehaviour
         }
         else if (!PlayerAnimationController.isCrouching && !cameraCooldown && doorCam.enabled)
         {
+            keyhole.enabled = false;
             playerCam.enabled = !playerCam.enabled;
             doorCam.enabled = !doorCam.enabled;
             Invoke("ResetCameraCooldown", 0.2f);

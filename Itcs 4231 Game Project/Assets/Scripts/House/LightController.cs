@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class LightController : MonoBehaviour
 {
-    public Light lightSource;
+    [SerializeField] Transform ghostTransform;
+
+    private Light lightSource;
     private new AudioSource audio;
 
     private float minIntensity = 0f;
@@ -28,9 +30,24 @@ public class LightController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.R))
         {
             flickering = !flickering;
+        }
+        */
+
+        Vector3 heading = ghostTransform.position - transform.position;
+        float distance = heading.magnitude;
+        Vector3 direction = heading / distance;
+
+        if (distance < 10f)
+        {
+            flickering = true;
+        }
+        else
+        {
+            flickering = false;
         }
 
         while (smoothQueue.Count >= lightSmoothness && flickering)
