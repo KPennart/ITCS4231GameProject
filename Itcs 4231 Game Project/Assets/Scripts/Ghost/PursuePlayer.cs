@@ -7,6 +7,8 @@ public class PursuePlayer : MonoBehaviour
 {
     public Transform target;
 
+    [SerializeField] Transform cameraLocation;
+
     [SerializeField] Transform kitchen;
     [SerializeField] Transform secondBedroomDoorwayExt;
     [SerializeField] Transform secondBedroom;
@@ -15,14 +17,19 @@ public class PursuePlayer : MonoBehaviour
 
     private Queue<Vector3> locations;
     private Vector3 nextLocation;
+    private Vector3 lastLocation;
 
     private bool justArrived;
+    private bool playerDetected;
 
     NavMeshAgent agent;
     private Animator anim;
 
     private void Start()
     {
+        justArrived = true;
+        playerDetected = false;
+
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
@@ -34,25 +41,35 @@ public class PursuePlayer : MonoBehaviour
     private void Update()
     {
         IsWalking();
-
-        if (hasGhostArrived() && justArrived)
+        if (IsPlayerInRange())
         {
-            justArrived = false;
-            destinationActivity();
-            Invoke("setNextDestination", 2f);
+            agent.SetDestination(target.position);
+            playerDetected = true;
+        }
+        else
+        {
+            if (playerDetected)
+            {
+                ResetPath();
+                playerDetected = false;
+            }
+            else
+            {
+                if (hasGhostArrived() && justArrived)
+                {
+                    justArrived = false;
+                    destinationActivity();
+                    Invoke("setNextDestination", 2f);
+                }
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-
-            setNextDestination();
-        }
-        
-
+        //Vector3 test = new Vector3(0f, 1f, 0f);
     }
 
     private void setNextDestination()
     {
+        lastLocation = nextLocation;
         nextLocation = locations.Dequeue();
         locations.Enqueue(nextLocation);
         agent.SetDestination(nextLocation);
@@ -75,8 +92,11 @@ public class PursuePlayer : MonoBehaviour
     {
         if (nextLocation == secondBedroomDoorwayExt.position)
         {
-            //Debug.Log("123456");
-            if (!secondBedroomDoor.GetComponent<DoorController>().isDoorOpen())
+            if (lastLocation == secondBedroom.position && secondBedroomDoor.GetComponent<DoorController>().isDoorOpen())
+            {
+                secondBedroomDoor.GetComponent<DoorController>().GhostOpenDoor();
+            }
+            if (lastLocation == kitchen.position && !secondBedroomDoor.GetComponent<DoorController>().isDoorOpen())
             {
                 secondBedroomDoor.GetComponent<DoorController>().GhostOpenDoor();
             }
@@ -103,5 +123,47 @@ public class PursuePlayer : MonoBehaviour
         locations.Enqueue(kitchen.position);
         locations.Enqueue(secondBedroomDoorwayExt.position);
         locations.Enqueue(secondBedroom.position);
+        locations.Enqueue(secondBedroomDoorwayExt.position);
     }
+
+    private bool IsPlayerInRange()
+    {
+        Vector3 direction = target.position - transform.position;
+        float angle = Vector3.Angle(direction, transform.forward);
+        if ((direction.magnitude < 15f && angle < 60))
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(transform.position + transform.up, direction.normalized, out hit, .5f))
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        else if (!PlayerAnimationController.isCrouching && direction.magnitude < 10f)
+        {
+            return true;
+        }
+        else if (PlayerAnimationController.isCrouching && direction.magnitude < 2f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void ResetPath()
+    {
+        agent.SetDestination(nextLocation);
+    }
+
 }
