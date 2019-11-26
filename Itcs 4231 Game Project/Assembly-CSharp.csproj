@@ -66,6 +66,7 @@
     <Compile Include="Assets\Models\Conifers [BOTD]\CTI Runtime Components\Scripts\CTI_Utils.cs" />
     <Compile Include="Assets\Models\RunemarkStudio\DarkFantasyKit [Free]\Readme\Parts\Readme.cs" />
     <Compile Include="Assets\Models\Wooden_chair_with_red_fabric\Scripts\Rotate.cs" />
+    <Compile Include="Assets\Scripts\Ghost\Jumpscare.cs" />
     <Compile Include="Assets\Scripts\Ghost\NavMeshInstantiator.cs" />
     <Compile Include="Assets\Scripts\Ghost\PursuePlayer.cs" />
     <Compile Include="Assets\Scripts\House\DoorAnimationController.cs" />
