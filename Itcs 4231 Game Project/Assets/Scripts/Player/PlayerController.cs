@@ -11,6 +11,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float sprintSpeedBonus;
     [SerializeField] private float crouchSpeedBonus;
 
+    // Fields used for footsteps sound effect
+    private new AudioSource audio;
+    [SerializeField] private AudioClip footsteps;
+    public float pitchValue = 1.0f;
+    private float pitchLow = 0.75f;
+    private float pitchHigh = 1.0f;
+    private bool footstepCooldown = false;
+
     // Instance of the chracter controller
     private CharacterController charController;
     // Instance of the animation controller
@@ -22,6 +30,7 @@ public class PlayerController : MonoBehaviour
         // Set the character and animation controllers equal to component's controller/animator
         charController = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -71,4 +80,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void playFootsteps()
+    {
+        if (!footstepCooldown)
+        {
+            Invoke("ResetStepCooldown", 0.2f);
+            footstepCooldown = true;
+            System.Random rnd = new System.Random();
+            audio.clip = footsteps;
+            pitchValue = Random.Range(pitchLow, pitchHigh);
+            audio.pitch = pitchValue;
+            audio.Play();
+        }
+        
+    }
+
+    void ResetStepCooldown()
+    {
+        footstepCooldown = false;
+    }
 }

@@ -27,15 +27,23 @@ public class DoorController : MonoBehaviour
 
     private bool cameraCooldown = false;
     private bool doorCooldown = false;
+    private bool soundCooldown = false;
     private bool doorOpen = false;
     private bool doorCamRotated = false;
 
     public bool playerInteraction = false;
 
+    private new AudioSource audio;
+    [SerializeField] private AudioClip openDoor;
+    [SerializeField] private AudioClip closeDoor;
+    [SerializeField] private AudioClip lockedDoor;
+    [SerializeField] private AudioClip unlockDoor;
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
         keyhole = GameObject.Find("Keyhole").GetComponent<Image>();
         xAxisClamp_flt = 0.0f;
     }
@@ -63,19 +71,48 @@ public class DoorController : MonoBehaviour
 
                 if (doorOpen)
                 {
+                    
                     anim.Play("Door_Open");
                 }
                 else
                 {
+                    
                     anim.Play("Door_Close");
                 }
             }
             else if (player.GetComponent<PlayerCamera>().keyCollection[keyRequired])
             {
+                audio.clip = unlockDoor;
+                audio.volume = 0.8f;
+                audio.Play();
                 unlocked = true;
+            }
+            else
+            {
+                if (!soundCooldown)
+                {
+                    Invoke("ResetSoundCooldown", 0.5f);
+                    soundCooldown = true;
+                    audio.clip = lockedDoor;
+                    audio.Play();
+                }
             }
             
         }
+    }
+
+    public void playOpenDoor()
+    {
+        audio.clip = openDoor;
+        audio.volume = 1f;
+        audio.Play();
+    }
+
+    public void playCloseDoor()
+    {
+        audio.clip = closeDoor;
+        audio.volume = 0.3f;
+        audio.Play();
     }
 
     public void GhostOpenDoor()
@@ -162,5 +199,10 @@ public class DoorController : MonoBehaviour
     void ResetDoorCooldown()
     {
         doorCooldown = false;
+    }
+
+    void ResetSoundCooldown()
+    {
+        soundCooldown = false;
     }
 }
