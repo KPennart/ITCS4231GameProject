@@ -6,6 +6,7 @@ public class LightController : MonoBehaviour
 {
     [SerializeField] Transform ghostTransform;
     [SerializeField] int floor;
+    [SerializeField] GameObject player;
 
     private Light lightSource;
     private new AudioSource audio;
@@ -17,6 +18,8 @@ public class LightController : MonoBehaviour
     public int lightSmoothness = 1;
 
     private bool flickering = false;
+    private int keyCount = 0;
+    private bool flickerOnPlayer = false;
 
     Queue<float> smoothQueue;
     
@@ -32,10 +35,39 @@ public class LightController : MonoBehaviour
     void Update()
     {
         Vector3 heading = ghostTransform.position - transform.position;
+        Vector3 playerHeading = player.transform.position - transform.position;
         float distance = heading.magnitude;
-        Vector3 direction = heading / distance;
+        float playerDistance = playerHeading.magnitude;
 
-        if (distance < 10f && SameFloor())
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            Debug.Log("TESTTEST");
+            Debug.Log("Distance: " + playerDistance + "   Key Count " + keyCount);
+        }
+        
+        if (keyCount < 3)
+        {
+            keyCount = 0;
+            for (int i = 0; i < player.GetComponent<PlayerCamera>().keyCollection.Length; i++)
+            {
+                Debug.Log("Key " + i + ": " + player.GetComponent<PlayerCamera>().keyCollection[i]);
+                if (player.GetComponent<PlayerCamera>().keyCollection[i])
+                {
+                    keyCount += 1;
+                }
+            }
+        }
+
+        if (keyCount == 2)
+        {
+            flickerOnPlayer = true;
+        }
+        else
+        {
+            flickerOnPlayer = false;
+        }
+
+        if ((distance < 10f && SameFloor()) || (playerDistance < 10f && flickerOnPlayer))
         {
             flickering = true;
         }

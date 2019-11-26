@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class PursuePlayer : MonoBehaviour
 {
     public Transform target;
+    [SerializeField] private GameObject player;
 
     [SerializeField] Transform cameraLocation;
 
@@ -26,13 +27,15 @@ public class PursuePlayer : MonoBehaviour
     NavMeshAgent agent;
     private Animator anim;
 
-    private void Start()
+    private void Awake()
     {
         justArrived = true;
         playerDetected = false;
 
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+
+        AttatchToNavMesh();
 
         locations = new Queue<Vector3>();
         PopulateLocationQueue();
@@ -153,13 +156,13 @@ public class PursuePlayer : MonoBehaviour
         Vector3 direction = target.position - transform.position;
         float angle = Vector3.Angle(direction, transform.forward);
 
-        Debug.Log(direction.magnitude);
+        //Debug.Log(direction.magnitude);
 
         if ((direction.magnitude < 15f && angle < 60))
         {
             RaycastHit hit;
 
-            Debug.DrawRay(transform.position + transform.up, direction.normalized, Color.red);
+            //Debug.DrawRay(transform.position + transform.up, direction.normalized, Color.red);
 
             if (Physics.Raycast(transform.position + transform.up, direction.normalized, out hit))
             {
@@ -206,4 +209,27 @@ public class PursuePlayer : MonoBehaviour
         agent.SetDestination(nextLocation);
     }
 
+    private int KeyCount()
+    {
+        int count = 0;
+        for (int i = 0; i < player.GetComponent<PlayerCamera>().keyCollection.Length; i++)
+        {
+            if (player.GetComponent<PlayerCamera>().keyCollection[i])
+            {
+                count += 1;
+            }
+        }
+
+        return count;
+    }
+
+    private void AttatchToNavMesh()
+    {
+        UnityEngine.AI.NavMeshHit closestHit;
+
+        if (UnityEngine.AI.NavMesh.SamplePosition(gameObject.transform.position, out closestHit, 500f, UnityEngine.AI.NavMesh.AllAreas))
+            gameObject.transform.position = closestHit.position;
+        else
+            Debug.LogError("Could not find position on NavMesh!");
+    }
 }
