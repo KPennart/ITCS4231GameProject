@@ -5,7 +5,6 @@ using UnityEngine;
 public class LightController : MonoBehaviour
 {
     [SerializeField] Transform ghostTransform;
-    [SerializeField] int floor;
 
     private Light lightSource;
     private new AudioSource audio;
@@ -31,11 +30,18 @@ public class LightController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            flickering = !flickering;
+        }
+        */
+
         Vector3 heading = ghostTransform.position - transform.position;
         float distance = heading.magnitude;
         Vector3 direction = heading / distance;
 
-        if (distance < 10f && SameFloor())
+        if (distance < 10f)
         {
             flickering = true;
         }
@@ -68,18 +74,5 @@ public class LightController : MonoBehaviour
         {
             lightSource.intensity = 2f;
         }
-    }
-
-    private bool SameFloor()
-    {
-        if (System.Math.Floor(ghostTransform.position.y) == 0 && floor == 1)
-        {
-            return true;
-        }
-        else if (System.Math.Floor(ghostTransform.position.y) == 6 && floor == 2)
-        {
-            return true;
-        }
-        return false;
     }
 }
