@@ -12,7 +12,7 @@ public class Jumpscare : MonoBehaviour
     {
         transform = GetComponent<Transform>();
         transform.SetPositionAndRotation(playerTrans.position, playerTrans.rotation);
-        transform.position = new Vector3(transform.position.x -3f, transform.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 3f);
 
         Invoke("Deactivate", 2f);
     }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class PursuePlayer : MonoBehaviour
 {
@@ -46,6 +47,12 @@ public class PursuePlayer : MonoBehaviour
     {
         IsWalking();
         GhostAI();
+        Vector3 direction = target.position - transform.position;
+        if (direction.magnitude <= 2f)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            SceneManager.LoadScene(3);
+        }
     }
 
     private void GhostAI()
