@@ -20,7 +20,7 @@ public class LightController : MonoBehaviour
     private bool flickering = false;
     private int keyCount = 0;
     private bool flickerOnPlayer = false;
-
+    private bool lightsOff = false;
     Queue<float> smoothQueue;
     
 
@@ -29,6 +29,7 @@ public class LightController : MonoBehaviour
         smoothQueue = new Queue<float>(lightSmoothness);
 
         lightSource = GetComponent<Light>();
+
     }
 
     // Update is called once per frame
@@ -56,6 +57,18 @@ public class LightController : MonoBehaviour
                     keyCount += 1;
                 }
             }
+        }
+
+        if (keyCount < 1 && !lightsOff)
+        {
+            lightSource.enabled = !lightSource.enabled;
+            lightsOff = true;
+        }
+
+        else if (lightsOff && keyCount >= 1)
+        {
+            lightSource.enabled = !lightSource.enabled;
+            lightsOff = false;
         }
 
         if (keyCount == 2)

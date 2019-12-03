@@ -16,12 +16,15 @@ public class KeyManager : MonoBehaviour
 
     private int keyCount;
 
+    private AudioSource audio;
+    [SerializeField] private AudioClip interiorMusic;
+
     // Start is called before the first frame update
     void Start()
     {
         rend = GetComponent<Renderer>();
         col = GetComponent<BoxCollider>();
-
+        audio = GetComponent<AudioSource>();
         playerInteraction = false;
 
         keyCount = 0;
@@ -63,6 +66,10 @@ public class KeyManager : MonoBehaviour
         {
             case 3:
                 fakeGhost.SetActive(true);
+                audio.clip = interiorMusic;
+                audio.loop = true;
+                audio.volume = 0.7f;
+                audio.Play();
                 break;
             case 4:
                 
